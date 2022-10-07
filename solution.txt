@@ -1,0 +1,18 @@
+Exercise 1)
+a) the plotted paths are in the code submission.
+`Wavefront/plots`
+
+b) 
+world1 -> 81 cells of 0.25 size 
+world2 -> 183 cells of 0.25 size
+
+d) The paths would pass through more cells, 
+but that doesnt mean that we would travel more distance.
+Because cell size is decreased.
+We may be able to find a closer path in a narrower passage, 
+so we may get there by traveling less distance.
+
+e) The gradient descent planner was harder to implement
+Because of tuning. Wavefront was much easier to implement.
+gradient descent generate solution faster than but it wasn't optimal, 
+Wavefront generates the best path w.r.t grid but takes longer to generate.

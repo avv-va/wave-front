@@ -11,9 +11,28 @@ class Grid:
 
     def __init__(self, start, goal, obstacles, x_range, y_range, grid_size=0.25) -> None:
         self.grid_size = grid_size
-        self.start_index = self.get_map_indx(start[0], start[1])
-        self.goal_index = self.get_map_indx(goal[0], goal[1])
-        self.map = self.construct_map(start, goal, obstacles, x_range, y_range)
+        
+
+        # Making sure everything starts from zero
+        x_range_c = (0, x_range[1] - x_range[0])
+        y_range_c = (0, y_range[1] - y_range[0])
+        start_c = (start[0] - x_range[0], start[1] - y_range[0])
+        goal_c = (goal[0] - x_range[0], goal[1] - y_range[0])
+        obstacles_c = []
+        for obstacle in obstacles:
+            coord = list(zip(*obstacle.exterior.coords.xy))
+            coord_c = []
+            for xy in coord:
+                xy_c = (xy[0] - x_range[0], xy[1] - y_range[0])
+                coord_c.append(xy_c)
+            obstacles_c.append(Polygon(coord_c))
+            
+        
+
+        self.start_index = self.get_map_indx(start_c[0], start_c[1])
+        self.goal_index = self.get_map_indx(goal_c[0], goal_c[1])
+
+        self.map = self.construct_map(start_c, goal_c, obstacles_c, x_range_c, y_range_c)
         self.map_row_size = len(self.map)
         self.map_column_size = len(self.map[0])
 
@@ -70,4 +89,5 @@ class Grid:
                     plt.fill(xs, ys, color='green')
                 elif self.map[x][y] == self.Cell.START:
                     plt.fill(xs, ys, color='blue')
-        plt.show()
+        # plt.show()
+        # plt.savefig("figure.png")
